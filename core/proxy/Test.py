@@ -5,7 +5,7 @@ import os
 class Test:
     """ Handler para testing de proxies """
     
-    def proxyChecker(self, proxyList = ("/etc/tor/torrc", "/etc/polipo/config")):
+    def proxyChecker(self, proxyList = ("/etc/tor/torrc", "/etc/polipo/config", "/etc/privoxy/config")):
         
         proxyMissing = []
         
@@ -19,7 +19,7 @@ class Test:
         else:
             return (False,tuple(proxyMissing))
     
-    def testConnectionProxy(self, address="127.0.0.1", ports={'tor': 9050, 'privoxy': 8118}):
+    def testConnectionProxy(self, address="127.0.0.1", ports={'tor': 9050, 'polipo':8123 , 'privoxy': 8118}):
         
         try:
         
