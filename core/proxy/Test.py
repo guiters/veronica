@@ -19,7 +19,7 @@ class Test:
         else:
             return (False,tuple(proxyMissing))
     
-    def testConnectionProxy(self, address="127.0.0.1", ports={'tor': 9050, 'polipo': 8118}):
+    def testConnectionProxy(self, address="127.0.0.1", ports={'tor': 9050, 'privoxy': 8118}):
         
         try:
         
