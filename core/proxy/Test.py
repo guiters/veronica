@@ -1,5 +1,4 @@
 import socket
-import getpass
 import os
 
 class Test:
