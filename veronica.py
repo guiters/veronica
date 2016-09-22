@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 import sys
+import subprocess as sp
+import os
 
 def main():
 
@@ -17,11 +19,16 @@ Usage: """ + sys.argv[0] + """ [cli|web]
 
 		try:
 
-			path = os.getenv("VERONICA_WEB_DIR")
+			web_dir_path = os.getenv("VERONICA_WEB_DIR")
 
 		except:
 
-			path = 'web/templates'
+			print("[-] Error: Set VERONICA_WEB_DIR in environment variables.")
+
+			sys.exit(1)
+
+		os.chdir(web_dir_path)
+		print(os.getcwd())
 
 		if sys.argv[1] == "cli":
 
@@ -29,7 +36,8 @@ Usage: """ + sys.argv[0] + """ [cli|web]
 
 		elif sys.argv[1] == "web":
 
-			execfile(pat"web.py")
+			#sp.Popen(["/"], stdin=sp.PIPE)
+			execfile("web.py")
 
 		else:
 
