@@ -35,3 +35,7 @@ class Test:
         except socket.timeout:
             
             return False
+
+        except socket.error:
+
+            return False
