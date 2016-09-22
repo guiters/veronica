@@ -1,4 +1,6 @@
 CherryPy==8.1.0
+Jinja2==2.8
+MarkupSafe==0.23
 argparse==1.2.1
 six==1.10.0
 stem==1.4.0
