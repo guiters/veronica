@@ -15,13 +15,21 @@ Usage: """ + sys.argv[0] + """ [cli|web]
 
 	else:
 
+		try:
+
+			path = os.getenv("VERONICA_WEB_DIR")
+
+		except:
+
+			path = 'web/templates'
+
 		if sys.argv[1] == "cli":
 
 			execfile("cli/cli.py")
 
 		elif sys.argv[1] == "web":
 
-			execfile("web/web.py")
+			execfile(pat"web.py")
 
 		else:
 

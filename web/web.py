@@ -6,7 +6,7 @@ import sqlite3 as sq
 import os
 
 try:
-	templates_path = os.getenv("VERONICA_TEMPLATES")
+	templates_path = os.getenv("VERONICA_WEB_TEMPLATES")
 except:
 	templates_path = "templates"
 

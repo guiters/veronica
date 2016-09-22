@@ -2,8 +2,8 @@
 
 echo "Setting variables..."
 
-export VERONICA_TEMPLATES="`pwd`/web/templates"
+export VERONICA_WEB_TEMPLATES="`pwd`/web/templates"
 
-echo $VERONICA_TEMPLATES
+export VERONICA_WEB_DIR="`pwd`/web"
 
 echo "Done..."
