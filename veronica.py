@@ -31,8 +31,6 @@ def webserver():
 		@cherrypy.expose
 		def index(self):
 
-			#index.exposed = True
-
 			template = self.__env.get_template('index.html')
 
 			instance = {
@@ -42,6 +40,39 @@ def webserver():
 			}
 
 			return template.render(instance=instance)
+
+		@cherrypy.expose
+		def auth(self, user="anon", password="anon"):
+
+			try:
+				if cherrypy.session['authenticated']:
+
+					return "<h2>User: " + self.__user + " is online</h2>"
+
+			except:
+
+				pass
+
+			conn = sq.connect('db/data.db')
+			print("Ok")
+
+			cursor = conn.execute("select name, password from users")
+
+			b = False
+
+			for row in cursor:
+
+				if row[0] == user and row[1] == password:
+
+					self.__user = user
+					b = True
+					cherrypy.session['authenticated'] = True
+					cherrypy.session['user'] = self.__user
+					return "Authenticated"
+
+			if not b:
+				return "Forbbiden"
+
 
 	conf = {
 		
