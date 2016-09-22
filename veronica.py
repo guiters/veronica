@@ -1,8 +1,60 @@
 #!/usr/bin/env python
 
 import sys
-import subprocess as sp
 import os
+
+def webserver():
+
+	import cherrypy
+	from jinja2 import Environment, FileSystemLoader
+	import sqlite3 as sq
+
+	class Root:
+
+		def __init__(self):
+
+			self.__user = "anonymous"
+
+			try:
+				templates_path = os.getenv("VERONICA_TEMPLATES")
+				print(templates_path)
+				if templates_path:
+					pass
+				else:
+					raise BaseException
+			except:
+				templates_path = "templates"
+
+			self.__env = Environment(loader=FileSystemLoader(str(templates_path)))
+
+
+		@cherrypy.expose
+		def index(self):
+
+			#index.exposed = True
+
+			template = self.__env.get_template('index.html')
+
+			instance = {
+
+				'user': self.__user
+
+			}
+
+			return template.render(instance=instance)
+
+	conf = {
+		
+		'/': {
+
+			'tools.sessions.on': True
+
+		}
+
+	}
+
+	cherrypy.quickstart(Root(), '/', conf)
+
 
 def main():
 
@@ -17,31 +69,11 @@ Usage: """ + sys.argv[0] + """ [cli|web]
 
 	else:
 
-		try:
-
-			web_dir_path = os.getenv("VERONICA_WEB_DIR")
-
-		except:
-
-			print("[-] Error: Set VERONICA_WEB_DIR in environment variables.")
-
-			sys.exit(1)
-
-		os.chdir(web_dir_path)
-		print(os.getcwd())
-
-		if sys.argv[1] == "cli":
-
-			execfile("cli/cli.py")
-
-		elif sys.argv[1] == "web":
-
-			#sp.Popen(["/"], stdin=sp.PIPE)
-			execfile("web.py")
+		if sys.argv[1] == "web":
+			webserver()
 
 		else:
-
-			print("[-] Illegal argument.")
+			pass
 
 if __name__ == "__main__":
 	main()
